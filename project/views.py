@@ -1,6 +1,5 @@
-from django.http import HttpResponse
-from django.template.loader import get_template
+from django.shortcuts import render
 
 
-def home_page(response):
-    return HttpResponse(get_template("home.html").render())
+def home_page(request):
+    return render(request, 'home.html')

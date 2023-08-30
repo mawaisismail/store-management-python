@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from .forms import UserForgetPassword
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout, forms, update_session_auth_hash, decorators
 
 
 def signup(request):
@@ -45,7 +44,20 @@ def logout_user(request):
     return redirect('/')
 
 
-@login_required
+@decorators.login_required(login_url='/user/login/')
 def change_password(request):
-    form = UserForgetPassword()
-    return render(request, "change-password.html", {"form": form})
+    print(request.user)
+    if request.method == 'POST':
+        form = forms.PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = forms.PasswordChangeForm(request.user)
+    return render(request, 'change-password.html', {
+        'form': form
+    })

@@ -1,0 +1,26 @@
+ul li {
+    font-size: 12px;
+    color: red;
+    padding: 0.5rem 0;
+}
+
+input {
+    background-color: #f9fafb !important;
+    margin-bottom: 1.5rem !important;
+    border-width: 1px !important;
+    border-color: #d1d5db !important;
+    color: #111827 !important;
+    font-size: 0.875rem !important;
+    border-radius: 0.5rem !important;
+    display: block !important;
+    width: 100% !important;
+    outline: none !important;
+    padding: 0.625rem !important;
+    margin-top: 0.5rem !important;
+}
+
+input:focus {
+    outline-color: #2563eb !important;
+    border-color: #2563eb !important;
+}
+

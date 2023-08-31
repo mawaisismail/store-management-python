@@ -18,6 +18,9 @@ class ProductsModel(models.Model):
     category = models.CharField(max_length=100)
     image = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class CartModel(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)

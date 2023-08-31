@@ -1,5 +1,5 @@
-from django.contrib import admin
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -17,3 +17,9 @@ class ProductsModel(models.Model):
     description = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     image = models.CharField(max_length=100)
+
+
+class CartModel(models.Model):
+    user_id = models.OneToOneField(CategoriesModel, on_delete=models.CASCADE)
+    product_id = models.OneToOneField(ProductsModel, on_delete=models.CASCADE)
+    quantity = models.IntegerField()

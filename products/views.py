@@ -1,5 +1,19 @@
 from django.shortcuts import render
+from .models import ProductsModel
+from django.http import Http404
 
 
 def products_page(request):
-    return render(request, 'products.html')
+    try:
+        products = ProductsModel.objects.all()
+        return render(request, 'products.html', {"products": products})
+    except Exception as e:
+        raise Http404("Something went wrong")
+
+
+def products_detail_page(request, product_id):
+    try:
+        product = ProductsModel.objects.get(id=product_id)
+        return render(request, 'product-detail.html', {"product": product})
+    except Exception:
+        raise Http404("Something went wrong")

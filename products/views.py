@@ -17,3 +17,7 @@ def products_detail_page(request, product_id):
         return render(request, 'product-detail.html', {"product": product})
     except Exception:
         raise Http404("Something went wrong")
+
+
+def shopping_cart_page(request):
+    return render(request, 'shopping-cart.html')

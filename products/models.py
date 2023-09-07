@@ -13,7 +13,7 @@ class CategoriesModel(models.Model):
 class ProductsModel(models.Model):
     category_id = models.ForeignKey(CategoriesModel, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    price = models.IntegerField(max_length=100)
+    price = models.IntegerField()
     description = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     image = models.CharField(max_length=100)

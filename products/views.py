@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from .models import ProductsModel
 from django.http import Http404
@@ -6,7 +7,11 @@ from django.http import Http404
 def products_page(request):
     try:
         products = ProductsModel.objects.all()
-        return render(request, 'products.html', {"products": products})
+        messages_data = {
+            'success': "This is a success message",
+        }
+        messages_json = json.dumps(messages_data)
+        return render(request, 'products.html', {"products": products, "messages_json": messages_json})
     except Exception as e:
         raise Http404("Something went wrong")
 

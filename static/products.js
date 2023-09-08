@@ -1,6 +1,28 @@
-const loadData = () => {
+const successMessage = {
+    'success': "This is a success message",
+}
+const failedMessage = {
+    'Failed': "Some thing went wrong",
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const loadData = (message = null) => {
     const scriptElement = document.querySelector('script[data-name="helper"]');
-    const messagesJson = JSON.parse(scriptElement.getAttribute('data-message'));
+    const messagesJson = message || JSON.parse(scriptElement.getAttribute('data-message'));
     if (messagesJson) {
         document.getElementById("toaster-title").innerHTML = Object.keys(messagesJson)[0];
         document.getElementById("toaster-description").innerHTML = Object.values(messagesJson)[0];
@@ -9,15 +31,36 @@ const loadData = () => {
         toast.classList.add("active");
         progress.classList.add("active");
         setTimeout(() => {
-            console.log('toast')
             toast.classList.remove("active");
         }, 3000)
 
         setTimeout(() => {
-            console.log('toast')
             progress.classList.remove("active");
         }, 3000)
     }
 }
-window.onload = loadData
 
+function addProductToCart(id) {
+    let csrftoken = getCookie('csrftoken');
+    fetch(`http://localhost:8000/products/add_to_cart/${id}`, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            "X-CSRFToken": csrftoken
+        },
+    }).then((response) => {
+        if (!response.ok) {
+            return response.json().then((errorData) => {
+                loadData(failedMessage);
+            });
+        }
+        return response.json().then((responseData) => {
+            loadData(successMessage);
+        });
+    }).catch((e) => {
+        console.log("Network Error:", e);
+        loadData(failedMessage);
+    });
+
+}

@@ -23,6 +23,6 @@ class ProductsModel(models.Model):
 
 
 class CartModel(models.Model):
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
-    product_id = models.OneToOneField(ProductsModel, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(ProductsModel, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)

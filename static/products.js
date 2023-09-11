@@ -51,13 +51,9 @@ function addProductToCart(id) {
         },
     }).then((response) => {
         if (!response.ok) {
-            return response.json().then((errorData) => {
-                loadData(failedMessage);
-            });
+            return loadData(failedMessage);
         }
-        return response.json().then((responseData) => {
-            loadData(successMessage);
-        });
+        return loadData(successMessage);
     }).catch((e) => {
         console.log("Network Error:", e);
         loadData(failedMessage);

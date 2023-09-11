@@ -1,6 +1,5 @@
-import json
 from django.shortcuts import render
-from .models import ProductsModel
+from .models import ProductsModel, CartModel
 from django.http import Http404, HttpResponse
 
 
@@ -21,9 +20,18 @@ def products_detail_page(request, product_id):
 
 
 def shopping_cart_page(request):
-    return render(request, 'shopping-cart.html')
+    products = CartModel.objects.filter(user_id=request.user)
+    print(products)
+    return render(request, 'shopping-cart.html', {'products': products})
 
 
 def add_to_cart(request, product_id):
-    print(product_id)
-    return HttpResponse("Something went wrong", status=400)
+    products_item = ProductsModel.objects.get(id=product_id)
+    try:
+        product = CartModel.objects.get(user_id=request.user, product_id=products_item)
+        product.quantity += 1
+        product.save()
+    except CartModel.DoesNotExist:
+        CartModel.objects.create(user_id=request.user, product_id=products_item)
+
+    return HttpResponse("Added to cart successfully")

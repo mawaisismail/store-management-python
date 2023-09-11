@@ -35,3 +35,7 @@ def add_to_cart(request, product_id):
         CartModel.objects.create(user_id=request.user, product_id=products_item)
 
     return HttpResponse("Added to cart successfully")
+
+
+def order_page(request):
+    return render(request, 'order.html')

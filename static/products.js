@@ -22,7 +22,7 @@ function getCookie(name) {
 
 const loadData = (message = null) => {
     const scriptElement = document.querySelector('script[data-name="helper"]');
-    const messagesJson = message || JSON.parse(scriptElement.getAttribute('data-message'));
+    const messagesJson = message ? message : JSON.parse(scriptElement.getAttribute('data-message'));
     if (messagesJson) {
         document.getElementById("toaster-title").innerHTML = Object.keys(messagesJson)[0];
         document.getElementById("toaster-description").innerHTML = Object.values(messagesJson)[0];
@@ -32,11 +32,11 @@ const loadData = (message = null) => {
         progress.classList.add("active");
         setTimeout(() => {
             toast.classList.remove("active");
-        }, 3000)
+        }, 1000)
 
         setTimeout(() => {
             progress.classList.remove("active");
-        }, 3000)
+        }, 1000)
     }
 }
 

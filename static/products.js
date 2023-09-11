@@ -40,6 +40,7 @@ const loadData = (message = null) => {
 }
 
 function addProductToCart(id) {
+
     let csrftoken = getCookie('csrftoken');
     fetch(`http://localhost:8000/products/add_to_cart/${id}`, {
         method: "POST",

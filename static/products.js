@@ -22,10 +22,9 @@ function getCookie(name) {
 
 const loadData = (message = null) => {
     const scriptElement = document.querySelector('script[data-name="helper"]');
-    const messagesJson = message ? message : JSON.parse(scriptElement.getAttribute('data-message'));
-    if (messagesJson) {
-        document.getElementById("toaster-title").innerHTML = Object.keys(messagesJson)[0];
-        document.getElementById("toaster-description").innerHTML = Object.values(messagesJson)[0];
+    if (Object.keys(message).length) {
+        document.getElementById("toaster-title").innerHTML = Object.keys(message)[0];
+        document.getElementById("toaster-description").innerHTML = Object.values(message)[0];
         let toast = document.querySelector(".toast");
         let progress = document.querySelector(".progress");
         toast.classList.add("active");

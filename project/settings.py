@@ -102,7 +102,7 @@ RQ_QUEUES = {
         'PORT': 6379,
         'DB': 0,
     },
-    'awais': {
+    'awais  ': {
         'HOST': 'localhost',
         'PORT': 6379,
         'DB': 0,

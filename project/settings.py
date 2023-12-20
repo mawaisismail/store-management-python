@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
-    'products.apps.ProductsConfig'
+    'products.apps.ProductsConfig',
+    "django_rq"
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,29 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
 
+    }
+}
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360,
+    },
+    'high': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),  # If you're on Heroku
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'low': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    },
+    'awais  ': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
     }
 }
 

@@ -22,5 +22,6 @@ urlpatterns = [
     path("", views.home_page),
     path('admin/', admin.site.urls),
     path('user/', include('users.urls')),
-    path('products/', include('products.urls'))
+    path('products/', include('products.urls')),
+    path('django-rq/', include('django_rq.urls'))
 ]

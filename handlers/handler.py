@@ -1,17 +1,11 @@
-from django_rq import job
-from datetime import datetime, timedelta
-from django_rq.queues import get_queue
+from django_rq import get_queue
+from datetime import timedelta
 
 
-# @job
-def print_hello():
-    # queue = get_queue()
-    # queue.enqueue(print_hello, timeout=100)
-    print("Hello")
+def print_name():
+    print("Hello World")
 
 
-@job("awais")
-def print_hello_awais():
-    queue = get_queue()
-    queue.enqueue(timedelta(seconds=100), print_hello_awais)
-    print("Hello awais")
+def print_hello_handler(a: str, delay: timedelta):
+    queue = get_queue(a)
+    queue.enqueue_in(delay, print_name)
